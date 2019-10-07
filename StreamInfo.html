@@ -77,13 +77,11 @@
             var urlParams = new URLSearchParams(window.location.search);
             const CLIENT_ID = urlParams.get('clientId');
             const USERNAME = urlParams.get('username');
-            $(document).ready(() => {
-                if(urlParams.get('dark') == 'true'){
-                    $(':root').css('--background-color', 'rgb(32, 31, 32)');
-                    $(':root').css('--text-color', 'white');
-                    $(':root').css('--link-color', 'rgb(191, 148, 255)');
-                }
-            })
+            if(urlParams.get('dark') == 'true'){
+                $(':root').css('--background-color', 'rgb(32, 31, 32)');
+                $(':root').css('--text-color', 'white');
+                $(':root').css('--link-color', 'rgb(191, 148, 255)');
+            }
 
             $(document).ready(LoadInfo);
             function LoadInfo(){
