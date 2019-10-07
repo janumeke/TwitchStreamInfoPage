@@ -10,6 +10,8 @@ When you go online:
 Then when you go offline:
 ![Demo3](https://raw.githubusercontent.com/janumeke/assets/master/TwitchStreamInfoPage/demo3.png)
 
+Note that this refreshes itself every 30 seconds, so the info may be as late as 30 seconds ago.
+
 ### Usage:
 <pre>StreamInfo.html?clientId=&lt;Your Client ID&gt;&username=&lt;Target Channel's Username&gt;&dark=true</pre>
 Last argument is optional. Default is light theme.
@@ -21,6 +23,8 @@ So for example, if you put the file under D:\\, you put the following in OBS &gt
 請參考上圖，只是換成中文。
 
 你需要有 Client ID 才能使用。可以在 Twitch Developers 網站取得。
+
+這每30秒更新一次，所以最多會是30秒前的資料。
 ### 使用方式:
 <pre>StreamInfo_zhtw.html?clientId=&lt;Client ID&gt;&username=&lt;頻道帳號&gt;&dark=true</pre>
 最後一個參數可以不填，預設是淺色模式。
