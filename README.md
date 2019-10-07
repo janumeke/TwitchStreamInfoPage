@@ -4,11 +4,11 @@ Replicating the feel of the channel info under the channel player, this is made 
 You must have a client ID (acquired from Twitch Developers website) to use this.
 
 For example, when you are offline:
-![Demo1](https://raw.githubusercontent.com/janumeke/assets/master/TwitchStreamInfoPage/demo1.png)
+![Demo1](https://raw.githubusercontent.com/janumeke/assets/master/TwitchStreamInfoPage/.png)
 When you go online:
-![Demo2](https://raw.githubusercontent.com/janumeke/assets/master/TwitchStreamInfoPage/demo2.png)
+![Demo2](https://raw.githubusercontent.com/janumeke/assets/master/TwitchStreamInfoPage/.png)
 Then when you go offline:
-![Demo3](https://raw.githubusercontent.com/janumeke/assets/master/TwitchStreamInfoPage/demo3.png)
+![Demo3](https://raw.githubusercontent.com/janumeke/assets/master/TwitchStreamInfoPage/.png)
 
 Note that this refreshes itself every 30 seconds, so the info may be as late as 30 seconds ago.
 
