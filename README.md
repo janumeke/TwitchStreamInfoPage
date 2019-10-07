@@ -1,14 +1,14 @@
 # TwitchStreamInfoPage
-Replicating the feel of the channel info under the channel player, this is made out to be an html file so that it can be docked within OBS. It shows title, category, box art, viewer count and stream uptime, and has both light and dark modes.
+Replicating the feel of the stream info under the channel player, this is made out to be an html file so that it can be docked within OBS. It shows title, category, box art, viewer count and stream uptime, and has both light and dark modes.
 
 You must have a client ID (acquired from Twitch Developers website) to use this.
 
 For example, when you are offline:
-![Demo1](https://raw.githubusercontent.com/janumeke/assets/master/TwitchStreamInfoPage/.png)
+![Demo1](https://raw.githubusercontent.com/janumeke/assets/master/TwitchStreamInfoPage/demo1.png)
 When you go online:
-![Demo2](https://raw.githubusercontent.com/janumeke/assets/master/TwitchStreamInfoPage/.png)
+![Demo2](https://raw.githubusercontent.com/janumeke/assets/master/TwitchStreamInfoPage/demo2.png)
 Then when you go offline:
-![Demo3](https://raw.githubusercontent.com/janumeke/assets/master/TwitchStreamInfoPage/.png)
+![Demo3](https://raw.githubusercontent.com/janumeke/assets/master/TwitchStreamInfoPage/demo3.png)
 
 Note that this refreshes itself every 30 seconds, so the info may be as late as 30 seconds ago.
 
