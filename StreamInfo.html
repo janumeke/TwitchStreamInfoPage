@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            :root{
+                --background-color: initial;
+                --text-color: initial;
+                --link-color: rgb(119, 44, 232);
+            }
+            body{
+                font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+                background-color: var(--background-color);
+                color: var(--text-color);
+            }
+            .flex{
+                display: flex;
+                align-items: flex-start;
+            }
+            .flex-column{
+                flex-direction: column;
+            }
+            .flex-grow-1{
+                flex-grow: 1;
+            }
+            .flex-shrink-0{
+                flex-shrink: 0;
+            }
+            .font-title{
+                font-size: 18px;
+            }
+            .color-link{
+                color: var(--link-color);
+            }
+            .color-live{
+                color: rgb(233, 25, 22);
+            }
+            .stat{
+                line-height: 16px;
+            }
+            .icon__svg{
+                fill: currentColor;
+            }
+            .mg-t-6{
+                margin-top: 6px;
+            }
+            .mg-t-5{
+                margin-top: 5px;
+            }
+            .mg-l-5{
+                margin-left: 5px;
+            }
+            .mg-r-5{
+                margin-right: 5px;
+            }
+            .mg-r-10{
+                margin-right: 10px;
+            }
+        </style>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script>
+            function FormatNumber(num){
+                return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+            }
+            function ConvertMilliseconds(value){
+                var sec = value / 1000;
+                var hour = Math.floor(sec / 60 / 60);
+                var min = Math.floor((sec - hour * 60 * 60) / 60);
+                return {
+                    hour,
+                    min
+                }
+            }
+        </script>
+        <!-- Controller -->
+        <script>
+            var urlParams = new URLSearchParams(window.location.search);
+            const CLIENT_ID = urlParams.get('clientId');
+            const USERNAME = urlParams.get('username');
+            $(document).ready(() => {
+                if(urlParams.get('dark') == 'true'){
+                    $(':root').css('--background-color', 'rgb(32, 31, 32)');
+                    $(':root').css('--text-color', 'white');
+                    $(':root').css('--link-color', 'rgb(191, 148, 255)');
+                }
+            })
+
+            $(document).ready(LoadInfo);
+            function LoadInfo(){
+                if(!CLIENT_ID || !USERNAME){
+                    $('#title').html('Missing arguments!');
+                    return;
+                }
+
+                $.ajax({
+                    url: 'https://api.twitch.tv/helix/streams?user_login=' + USERNAME,
+                    headers: {
+                        'Client-ID': CLIENT_ID
+                    }
+                })
+                .done((res) => {
+                    setTimeout(LoadInfo, 30000);
+                    if(res.data.length > 0){
+                        $('#title').html(res.data[0].title);
+                        $('#viewer_count').html(FormatNumber(res.data[0].viewer_count));
+                        var uptime = ConvertMilliseconds(Date.now() - new Date(res.data[0].started_at));
+                        $('#uptime').html(uptime.hour + ':' + uptime.min.toString().padStart(2, '0'));
+                        $.ajax({
+                            url: 'https://api.twitch.tv/helix/games?id=' + res.data[0].game_id,
+                            headers: {
+                                'Client-ID': CLIENT_ID
+                            }
+                        })
+                        .done((res) => {
+                            $('#game_name').html(res.data[0].name);
+                            var boxArtUrl = res.data[0].box_art_url;
+                            boxArtUrl = boxArtUrl.replace('{width}', '85');
+                            boxArtUrl = boxArtUrl.replace('{height}', '113');
+                            $('#game_box_art').attr('src', boxArtUrl);
+                        });
+                    }
+                    else{
+                        $('#title').html('Not Live');
+                        $('#viewer_count').html();
+                    }
+                })
+                .fail((xhr) => {
+                    $('#title').html(xhr.status + ' ' + xhr.responseJSON.error);
+                    if(xhr.status == 401){
+                        $('#title').append(' (Probably clientId is wrong.)');
+                    }
+                    $('#game_name').html('You need to manually reload this component.');
+                });
+            }
+        </script>
+    </head>
+    <!-- View -->
+    <body>
+        <div class="flex">
+            <div class="mg-r-10">
+                <img id="game_box_art" width="48" src="https://static-cdn.jtvnw.net/ttv-static/404_boxart.jpg">
+            </div>
+            <div class="flex-grow-1 flex-column">
+                <div class="flex">
+                    <div id="title" class="flex-grow-1 font-title"></div>
+                    <div class="flex-shrink-0 stat mg-t-6 flex">
+                        <div class="mg-r-10 flex color-live" title="Watching Now">
+                            <svg class="icon__svg" height="1em" version="1.1" viewBox="0 0 20 20" x="0px" y="0px">
+                                <g>
+                                    <path fill-rule="evenodd" d="M5 7a5 5 0 116.192 4.857A2 2 0 0013 13h1a3 3 0 013 3v2h-2v-2a1 1 0 00-1-1h-1a3.99 3.99 0 01-3-1.354A3.99 3.99 0 017 15H6a1 1 0 00-1 1v2H3v-2a3 3 0 013-3h1a2 2 0 001.808-1.143A5.002 5.002 0 015 7zm5 3a3 3 0 110-6 3 3 0 010 6z" clip-rule="evenodd"></path>
+                                </g>
+                            </svg>
+                            <div id="viewer_count" class="mg-l-5"></div>
+                        </div>
+                        <div class="flex" title="Stream Uptime">
+                            <i class="far fa-clock"></i>
+                            <div id="uptime" class="mg-l-5"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mg-t-5">
+                    <span class="mg-r-5">Category:</span>
+                    <span id="game_name" class="color-link"></span>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
