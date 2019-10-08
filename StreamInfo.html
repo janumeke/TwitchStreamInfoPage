@@ -3,8 +3,8 @@
     <head>
         <style>
             :root{
-                --background-color: initial;
-                --text-color: initial;
+                --background-color: white;
+                --text-color: black;
                 --link-color: rgb(119, 44, 232);
             }
             body{
@@ -84,6 +84,7 @@
             }
 
             $(document).ready(LoadInfo);
+            var currentGameId;
             function LoadInfo(){
                 if(!CLIENT_ID || !USERNAME){
                     $('#title').html('Missing arguments!');
@@ -103,19 +104,28 @@
                         $('#viewer_count').html(FormatNumber(res.data[0].viewer_count));
                         var uptime = ConvertMilliseconds(Date.now() - new Date(res.data[0].started_at));
                         $('#uptime').html(uptime.hour + ':' + uptime.min.toString().padStart(2, '0'));
-                        $.ajax({
-                            url: 'https://api.twitch.tv/helix/games?id=' + res.data[0].game_id,
-                            headers: {
-                                'Client-ID': CLIENT_ID
-                            }
-                        })
-                        .done((res) => {
-                            $('#game_name').html(res.data[0].name);
-                            var boxArtUrl = res.data[0].box_art_url;
-                            boxArtUrl = boxArtUrl.replace('{width}', '85');
-                            boxArtUrl = boxArtUrl.replace('{height}', '113');
-                            $('#game_box_art').attr('src', boxArtUrl);
-                        });
+                        if(currentGameId != res.data[0].game_id){
+                            currentGameId = res.data[0].game_id;
+                            $.ajax({
+                                url: 'https://api.twitch.tv/helix/games?id=' + res.data[0].game_id,
+                                headers: {
+                                    'Client-ID': CLIENT_ID
+                                }
+                            })
+                            .done((res) => {
+                                if(res.data.length > 0){
+                                    $('#game_name').html(res.data[0].name);
+                                    var boxArtUrl = res.data[0].box_art_url;
+                                    boxArtUrl = boxArtUrl.replace('{width}', '85');
+                                    boxArtUrl = boxArtUrl.replace('{height}', '113');
+                                    $('#game_box_art').attr('src', boxArtUrl);
+                                }
+                                else{
+                                    $('#game_name').html('');
+                                    $('#game_box_art').attr('src', 'https://static-cdn.jtvnw.net/ttv-static/404_boxart.jpg');
+                                }
+                            });
+                        }
                     }
                     else{
                         $('#title').html('Not Live');
