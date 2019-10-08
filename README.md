@@ -25,6 +25,7 @@ So for example, if you put the file under D:\\, you put the following in OBS &gt
 你需要有 Client ID 才能使用。可以在 Twitch Developers 網站取得。
 
 這每30秒更新一次，所以最多會是30秒前的資料。
+
 ### 使用方式:
 <pre>StreamInfo_zhtw.html?clientId=&lt;Client ID&gt;&username=&lt;頻道帳號&gt;&dark=true</pre>
 最後一個參數可以不填，預設是淺色模式。

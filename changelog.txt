@@ -1,0 +1,3 @@
+ 2019-10-9    782ab46
+    Checks the game is different before sending a second API call.
+    Fixed a bug when the game is empty or unknown.
