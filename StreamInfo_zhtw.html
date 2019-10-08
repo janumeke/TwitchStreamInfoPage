@@ -8,7 +8,7 @@
                 --link-color: rgb(119, 44, 232);
             }
             body{
-                font-family: "思源黑體", "Noto Sans CJK TC", "微軟正黑體", "Helvetica Neue", Helvetica, Arial, sans-serif;
+                font-family: 思源黑體, "Noto Sans CJK TC", PingFang, 微軟正黑體, "Helvetica Neue", Helvetica, Arial, sans-serif;
                 background-color: var(--background-color);
                 color: var(--text-color);
             }
@@ -86,7 +86,7 @@
             $(document).ready(LoadInfo);
             function LoadInfo(){
                 if(!CLIENT_ID || !USERNAME){
-                    $('#title').html('缺少引數!');
+                    $('#title').html('缺少引數！');
                     return;
                 }
 
