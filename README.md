@@ -18,17 +18,3 @@ Last argument is optional. Default is light theme.
 
 So for example, if you put the file under D:\\, you put the following in OBS &gt; View &gt; Docks &gt; Custom Browser Docks &gt; URL:
 <pre>D:\StreamInfo.html?clientId=...&username=...</pre>
-
-# 繁體中文版
-請參考上圖，只是換成中文。
-
-你需要有 Client ID 才能使用。可以在 Twitch Developers 網站取得。
-
-這每30秒更新一次，所以最多會是30秒前的資料。
-
-### 使用方式:
-<pre>StreamInfo_zhtw.html?clientId=&lt;Client ID&gt;&username=&lt;頻道帳號&gt;&dark=true</pre>
-最後一個參數可以不填，預設是淺色模式。
-
-例如你把檔案放在D:\，到 OBS &gt; 檢視 &gt; 停駐視窗 &gt; 自訂瀏覽器停駐視窗 &gt; URL 填入：
-<pre>D:\StreamInfo_zhtw.html?clientId=...&username=...</pre>
